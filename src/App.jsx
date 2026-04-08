@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './App.css'
+import { MdDelete } from "react-icons/md";
+import { TbEdit } from 'react-icons/tb';
 
 function App() {
   const [todos, setTodos] = useState([])
@@ -22,8 +24,12 @@ function App() {
     setTodos((todos) => todos.filter(todos => todos.id !== id))
   }
 
-  function handleEdit(id) {
-
+  function handleEdit(e, id) {
+    setTodos((todos) =>
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, title: e.target.innerHTML } : todo
+      )
+    )
   }
 
   function handleComplete(id) {
@@ -56,11 +62,19 @@ function App() {
               <li onClick={() => handleComplete(el.id)} key={el.id} className='item'>
                 <div className="left">
                   <span>{index + 1}</span>
-                  <p className={el.isComplete ? "toggle" : ""}>{el.title}</p>
+                  <p 
+                    onBlur={(e) => handleEdit(e, el.id)} 
+                    contentEditable
+                    suppressContentEditableWarning 
+                    className={el.isComplete ? "toggle" : ""}
+                    >{el.title}</p>
                 </div>
 
-                <button onClick={() => handleDelete(el.id)}>Delete</button>
-                <button onClick={() => handleEdit(el.id)}>Edit</button>
+                <TbEdit onClick={(e) => e.stopPropagation()} />
+                <MdDelete onClick={(e) => {
+                  e.stopPropagation()
+                  handleDelete(el.id)
+                }}/>
               </li>
             )
           })}
