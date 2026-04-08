@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdDoneOutline } from "react-icons/md";
 import { TbEdit } from 'react-icons/tb';
 
 function App() {
@@ -25,11 +25,20 @@ function App() {
   }
 
   function handleEdit(e, id) {
+    const editedTitle = e.currentTarget.textContent.replace(/\s+/g, " ").trim()
+
     setTodos((todos) =>
       todos.map((todo) =>
-        todo.id === id ? { ...todo, title: e.target.innerHTML } : todo
+        todo.id === id ? { ...todo, title: editedTitle } : todo
       )
     )
+  }
+
+  function handleEditKeyDown(e) {
+    if (e.key === "Enter") {
+      e.preventDefault()
+      e.currentTarget.blur()
+    }
   }
 
   function handleComplete(id) {
@@ -59,22 +68,33 @@ function App() {
         <ul className="list">
           {todos.map((el, index) => {
             return (
-              <li onClick={() => handleComplete(el.id)} key={el.id} className='item'>
+              <li key={el.id} className='item'>
                 <div className="left">
                   <span>{index + 1}</span>
                   <p 
                     onBlur={(e) => handleEdit(e, el.id)} 
+                    onKeyDown={handleEditKeyDown}
                     contentEditable
                     suppressContentEditableWarning 
                     className={el.isComplete ? "toggle" : ""}
                     >{el.title}</p>
                 </div>
 
-                <TbEdit onClick={(e) => e.stopPropagation()} />
-                <MdDelete onClick={(e) => {
-                  e.stopPropagation()
-                  handleDelete(el.id)
-                }}/>
+                <div className='icons'>
+                  <MdDoneOutline className='done' 
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleComplete(el.id)
+                      }}
+                  />
+                  <TbEdit onClick={(e) => e.stopPropagation()} />
+                  <MdDelete className='delete' 
+                      onClick={(e) => {
+                      e.stopPropagation()
+                      handleDelete(el.id)
+                    }}
+                  />
+                </div>
               </li>
             )
           })}
