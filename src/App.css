@@ -1,0 +1,117 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+}
+
+/* Layout */
+.app {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card */
+.card {
+  background: #181818;
+  padding: 24px;
+  border-radius: 16px;
+  width: 350px;
+  color: #f5f5f5;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+  margin-bottom: 16px;
+}
+
+/* Form */
+.form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.form input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  background: #222;
+  color: #fff;
+}
+
+.form input::placeholder {
+  color: #777;
+}
+
+.form button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #2c2c2c;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.form button:hover {
+  background: #3a3a3a;
+}
+
+/* List */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #222;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  transition: 0.2s;
+}
+
+.item:hover {
+  background: #2a2a2a;
+}
+
+.left {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.left span {
+  color: #888;
+  font-size: 14px;
+}
+
+/* Delete button */
+.item button {
+  background: none;
+  border: none;
+  color: #ff6b6b;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.item button:hover {
+  color: #ff4b4b;
+}
+
+.toggle {
+  text-decoration: line-through;
+}
