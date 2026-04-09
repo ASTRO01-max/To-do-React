@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { MdDelete, MdDoneOutline } from "react-icons/md";
+import { MdDelete, MdDoneOutline, MdCancel } from "react-icons/md";
 import { TbEdit } from 'react-icons/tb';
 
 function App() {
@@ -68,7 +68,7 @@ function App() {
         <ul className="list">
           {todos.map((el, index) => {
             return (
-              <li key={el.id} className='item'>
+              <li key={el.id} className={`item ${el.isComplete ? "toggle" : ""}`}>
                 <div className="left">
                   <span>{index + 1}</span>
                   <p 
@@ -79,17 +79,28 @@ function App() {
                     className={el.isComplete ? "toggle" : ""}
                     >{el.title}</p>
                 </div>
-
                 <div className='icons'>
-                  <MdDoneOutline className='done' 
+                  {el.isComplete ? (
+                    <MdCancel 
                       onClick={(e) => {
                         e.stopPropagation()
                         handleComplete(el.id)
                       }}
-                  />
-                  <TbEdit onClick={(e) => e.stopPropagation()} />
-                  <MdDelete className='delete' 
+                    />
+                  ) : (
+                    <MdDoneOutline 
                       onClick={(e) => {
+                        e.stopPropagation()
+                        handleComplete(el.id)
+                      }}
+                    />
+                  )}
+
+                  <TbEdit onClick={(e) => e.stopPropagation()} />
+
+                  <MdDelete 
+                    className='delete' 
+                    onClick={(e) => {
                       e.stopPropagation()
                       handleDelete(el.id)
                     }}
